@@ -14,6 +14,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 
+# To load api keys in shell.
+import os
+
 # import sys
 # import codecs
 # sys.stdout = codecs.getwriter('utf8')(sys.stdout)
@@ -21,9 +24,9 @@ from sqlalchemy import create_engine
 
 
 # API Keys
-foursquare_client_id = 'QVY0YIACTYI30DRWLK4ZUNT1KFQHAPGPOBKEM5DYWL0CLEJN'
-foursquare_client_secret = 'WRCP40LWD1NO0KUEGWINKMQNWO5HCSM4TYUDZCHUMYEMTIKP'
-google_api_key = 'AIzaSyBKoTTTlfbbk0wKLFISgiJx_4jCYOdLwZs'
+foursquare_client_id = os.environ.get('FORSQUARE_CLIENT_ID')
+foursquare_client_secret = os.environ.get('FORSQUARE_CLIENT_SECRET')
+google_api_key = os.environ.get('GOOLE_API_KEY')
 
 # Create engine by referencing SQLite database venues.db created with
 # models.py.  Alternative: PostgreSQL.
@@ -46,7 +49,6 @@ def all_venues_handler():
     # If request method is GET, run a query on the database's Venue table
     # (Class) for all venues. Return value is a list of Venue objects.
     # if request.method == 'GET':
-
     #     venues = session.query(Venue).all()
     #     print(venues)
 
@@ -54,7 +56,7 @@ def all_venues_handler():
     #     # serialized, or, made into a dictionary then added to a list via a list
     #     # comprehension.  This list is then jsonfied for injestion by front end.
     #     return jsonify(venues=[i.serialize for i in venues])
-
+    
     # # Make a new venue and store it in the database.
     if request.method == 'GET':
         # Flask.Request.args creates a MultiDict (dictionary subclass customized
